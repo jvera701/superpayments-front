@@ -5,20 +5,25 @@ import { login } from "../api/api";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
+    setError(false);
     e.preventDefault();
     if (username !== "" && password !== "") {
       const result = await login(username, password);
-      console.log(result);
-      navigate("/home");
+      if ("error" in result) {
+        setError(true);
+      } else {
+        navigate("/home");
+      }
     }
   }
 
   return (
     <div className="mx-72 my-52">
-      <h1 className="text-sky-400 font-black text-4xl">
+      <h1 className="text-blue-500 font-black text-4xl">
         Inicia sesión en {""}
         <span className="text-slate-700">Super Pagos</span>
       </h1>
@@ -56,9 +61,14 @@ function Login() {
         <input
           type="submit"
           value="Iniciar Sesión"
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+          className="text-xl bg-blue-500 text-white py-2 px-4 rounded"
         />
       </form>
+      {error && (
+        <div className="text-xl bg-red-600 py-2 my-5 px-2 w-auto text-center">
+          Ocurrió un error, por favor intenta de nuevo
+        </div>
+      )}
     </div>
   );
 }
