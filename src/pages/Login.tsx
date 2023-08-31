@@ -1,12 +1,15 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/api";
+import { useAppDispatch } from "../store/hooks";
+import { updateStore } from "../store/initialSlice";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   async function handleSubmit(e: FormEvent) {
     setError(false);
@@ -16,6 +19,11 @@ function Login() {
       if ("error" in result) {
         setError(true);
       } else {
+        dispatch(
+          updateStore({
+            user: "hello",
+          })
+        );
         navigate("/home");
       }
     }

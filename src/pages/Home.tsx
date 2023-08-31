@@ -1,5 +1,9 @@
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
+
 function Home() {
-  return <div> Hello</div>;
+  const storedData = useSelector((state: RootState) => state.info);
+  return <div> Hello + {storedData.user}</div>;
 }
 
 export default Home;
