@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import initialStore from "./initialState";
-import type { UserInfo } from "./initialState";
+import { ModuleInfo } from "../interfaces";
 
 export const storeSlice = createSlice({
   name: "store",
   initialState: initialStore,
   reducers: {
-    updateStore: (_state, action: PayloadAction<UserInfo>) => {
+    updateStore: (_state, action: PayloadAction<ModuleInfo>) => {
       return action.payload;
     },
   },

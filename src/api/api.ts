@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Response } from "../interfaces";
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_APP_URL,
@@ -6,17 +7,9 @@ const API = axios.create({
   timeoutErrorMessage: "Timeout error",
 });
 
-/** 
-const API_IMAGES = axios.create({
-  baseURL: import.meta.env.VITE_APP_IMAGES,
-  timeout: 5000,
-  timeoutErrorMessage: "Timeout error",
-});
-*/
-
 const login = async (username: string, password: string) => {
   try {
-    const response = await API.post("/auth/login", {
+    const response = await API.post<Response>("/auth/login", {
       username: username,
       password: password,
     });

@@ -1,9 +1,7 @@
-export type UserInfo = {
-  user: string;
-};
+import { ModuleInfo } from "../interfaces";
 
-const initialStore: UserInfo = {
-  user: "",
+const initialStore: ModuleInfo = {
+  modules: [],
 };
 
 export default initialStore;

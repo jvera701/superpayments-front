@@ -21,7 +21,7 @@ function Login() {
       } else {
         dispatch(
           updateStore({
-            user: "hello",
+            modules: result.modules,
           })
         );
         navigate("/home");
