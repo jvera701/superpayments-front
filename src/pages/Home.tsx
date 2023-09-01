@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { useAppSelector } from "../store/hooks";
 import type { RootState } from "../store/store";
+import CustomButton from "../components/CustomButton";
 import type { Module, Category } from "../interfaces";
 
 function Home() {
   const [module, setModule] = useState<Module>();
   const [category, setCategory] = useState<Category>();
+  const storedData = useAppSelector((state: RootState) => state.info);
 
   const categoryType = (customCategory: Category) => {
     if (customCategory?.subCategories) {
       return (
         <>
-          {customCategory?.subCategories.map((e) => {
+          {customCategory?.subCategories.map((subCat) => {
             return (
               <div className="ml-6">
-                <p className="text-slate-600">{e.name}</p>
-                {categoryType(e)}
+                <p className="text-slate-600">{subCat.name}</p>
+                {categoryType(subCat)}
               </div>
             );
           })}
@@ -50,7 +52,6 @@ function Home() {
     charge: "Cargar",
     link: "Enlace",
   };
-  const storedData = useAppSelector((state: RootState) => state.info);
 
   return (
     <div className=" h-full w-full">
@@ -62,14 +63,13 @@ function Home() {
           {storedData.modules.map((module) => {
             return (
               <li className="list-none">
-                <button
-                  className="text-black-600 font-medium text-xl m-4 hover:text-sky-600 "
+                <CustomButton
+                  className="text-black-600 font-medium text-xl m-4 hover:text-sky-600"
                   onClick={() => {
                     setModule(module);
                   }}
-                >
-                  {translation[module.name]}
-                </button>
+                  text={translation[module.name]}
+                />
               </li>
             );
           })}
@@ -78,14 +78,13 @@ function Home() {
           <h2 className="flex flex-row">
             {module?.categories?.map((category) => {
               return (
-                <button
+                <CustomButton
                   className="text-xl hover:text-blue-800  m-4 border-b-indigo-500"
                   onClick={() => {
                     setCategory(category);
                   }}
-                >
-                  {category.name}
-                </button>
+                  text={category.name}
+                />
               );
             })}
           </h2>
